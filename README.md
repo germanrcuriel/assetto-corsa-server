@@ -1,7 +1,7 @@
 ## assetto-corsa-server
 [![](https://images.microbadger.com/badges/image/germanrcuriel/assetto-corsa-server.svg)](http://microbadger.com/images/germanrcuriel/assetto-corsa-server "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/germanrcuriel/assetto-corsa-server.svg)](http://microbadger.com/images/germanrcuriel/assetto-corsa-server "Get your own version badge on microbadger.com")
 
-An [Assetto Corsa Dedicated Server](https://steamdb.info/app/302550/) docker container.
+[Assetto Corsa Dedicated Server](https://steamdb.info/app/302550/) docker container.
 
 ### Usage
     docker run -d \
