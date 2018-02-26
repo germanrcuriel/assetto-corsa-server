@@ -11,6 +11,7 @@
         -e STEAM_USER=<Steam username> \
         -e STEAM_PASSWORD=<Steam password> \
         -e STEAM_APP_NAME=<Steam Application Folder Name> \
+        -e FORCE_UPDATE=1 \
         -p 8081:8081 \
         -p 9600:9600 \
         -p 9600:9600/udp \
@@ -25,6 +26,7 @@
 * `-e STEAM_USER` for your Steam account username. **Mandatory**.
 * `-e STEAM_PASSWORD` for your Steam account password. **Mandatory**.
 * `-e STEAM_APP_NAME` for the folder name you want to create for the installation.
+* `-e FORCE_UPDATE` if set, it will update Assetto Corsa Dedicated Server.
 * `-p 8081:8081` Default Assetto Corsa HTTP port.
 * `-p 9600:9600` Default Assetto Corsa TCP port.
 * `-p 9600:9600/udp` Default Assetto Corsa UDP port.
