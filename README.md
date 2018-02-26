@@ -4,7 +4,7 @@
 An [Assetto Corsa Dedicated Server](https://steamdb.info/app/302550/) docker container.
 
 ### Usage
-    docker create \
+    docker run -d \
         --name assetto-corsa-server \
         -e PUID=<UID> -e PGID=<GID> \
         -e TZ=<timezone> \
