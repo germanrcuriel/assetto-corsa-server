@@ -3,7 +3,7 @@ set -e
 
 echo ">>> Updating Assetto Corsa Dedicated Server..."
 /opt/steamcmd/steamcmd.sh \
-  +@sSteamCmdForcePlatformType ${STEAM_PLATFORM:=linux} \
+  +@sSteamCmdForcePlatformType windows \
   +login ${STEAM_USER:=anonymous} ${STEAM_PASSWORD} \
   +force_install_dir /steamapps/${STEAM_APP_NAME:=$STEAM_APP_ID} \
   +app_update ${STEAM_APP_ID} \
