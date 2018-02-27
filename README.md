@@ -18,44 +18,68 @@
         -v </path/to/install_dir>:/steamapps \
         germanrcuriel/assetto-corsa-server
 
+This will install, config (for the first time only) and run:
+- [Assetto Corsa Dedicated Server](https://steamdb.info/app/302550/)
+- [stracker](http://www.n-e-y-s.de/main)
+- [MinoRating](http://www.minorating.com/)
+- [AC_TrackCycle](http://www.racedepartment.com/downloads/ac_trackcycle.6917/)
+
+For a list of complete parameters, see below.
+
 ### Parameters
 
 * `-e PUID` for UserID - see below for explanation.
 * `-e PGID` for GroupID - see below for explanation.
-* `-e TZ` for timezone information, Europe/Madrid.
+* `-e TZ` for timezone information, for example, `Europe/Madrid`.
 * `-e STEAM_USER` for your Steam account username. **Mandatory**.
 * `-e STEAM_PASSWORD` for your Steam account password. **Mandatory**.
-* `-e ASSETTO_FOLDER` for the folder name you want to create for the installation.
-* `-e FORCE_UPDATE` if set, it will update Assetto Corsa Dedicated Server.
+* `-e ASSETTO_FOLDER` for the folder name you want to create for the installation. Defaults to `assetto`.
+* `-e FORCE_UPDATE` if set, it will force update Assetto Corsa Dedicated Server.
+
+* `-p 8081:8081` Default Assetto Corsa HTTP port. **Mandatory**. Change it if `AC_HTTP_PORT` is different.
+* `-p 9600:9600` Default Assetto Corsa TCP port. **Mandatory**. Change it if `AC_TCP_PORT` is different.
+* `-p 9600:9600/udp` Default Assetto Corsa UDP port. **Mandatory**. Change it if `AC_UDP_PORT` is different.
+* `-p 50041:50041` Default stracker HTTP port. **Mandatory**. Change it if `ST_HTTP_PORT` is different.
+* `-p 50042:50042` Default ptracker port. **Mandatory**. Change it if `ST_PTRACKER_PORT` is different.
+
+* `-v </path/to/install_dir>:/steamapps` - Base install path. **Mandatory**. A folder called `assetto` (or the one specified in `ASSETTO_FOLDER`) will be created under this volume.
+
+#### Assetto Corsa Dedicated Server
 
 * `-e AC_SERVER_NAME` for the public server name. Defaults to `AC_Server`.
-* `-e AC_SERVER_PASSWORD` for setting a password to join the server.
-* `-e AC_SERVER_ADMIN_PASSWORD` for setting the admin password to handle the server.
-* `-e AC_SERVER_UDP_PORT`. Defaults to `9600`.
-* `-e AC_SERVER_TCP_PORT`. Defaults to `9600`.
-* `-e AC_SERVER_HTTP_PORT`. Defaults to `8081`.
+* `-e AC_PASSWORD` for setting a password to join the server.
+* `-e AC_ADMIN_PASSWORD` for setting the admin password to handle the server.
+* `-e AC_UDP_PORT`. Defaults to `9600`.
+* `-e AC_TCP_PORT`. Defaults to `9600`.
+* `-e AC_HTTP_PORT`. Defaults to `8081`.
 * `-e AC_PLUGIN_LOCAL_PORT`. Defaults to `10001`.
 * `-e AC_PLUGIN_ADDRESS_LOCAL_PORT`. Defaults to `10002`.
-* `-e AC_AUTH_PLUGIN_ADDRESS` for setting an AUTH plugin.
 
-* `-e STRACKER_USERNAME` to set password for the stracker admin pages.
-* `-e STRACKER_PASSWORD` to set the username for the stracker admin pages.
-* `-e STRACKER_HTTP_PORT` to change the port of stracker. Defaults to `50041`.
-* `-e STRACKER_SERVER_NAME` for tagging sessions in stracker. Defaults to `acserver`.
-* `-e STRACKER_PROXY_PLUGIN_PORT`. Defaults to `11001`.
-* `-e STRACKER_PROXY_PLUGIN_LOCAL_PORT`. Defaults to `11002`.
 
-* `-p 8081:8081` Default Assetto Corsa HTTP port. **Change it if `AC_SERVER_HTTP_PORT` is different**.
-* `-p 9600:9600` Default Assetto Corsa TCP port. **Change it if `AC_SERVER_TCP_PORT` is different**.
-* `-p 9600:9600/udp` Default Assetto Corsa UDP port. **Change it if `AC_SERVER_UDP_PORT` is different**.
-* `-p 50041:50041` Default stracker HTTP port. **Change it if `STRACKER_HTTP_PORT` is different**.
-* `-p 50042:50042` Default ptracker port.
-* `-v </path/to/install_dir>:/steamapps` - Base install path. A folder called `assetto` (or the one specified in `ASSETTO_FOLDER`) will be created under this volume.
+#### stracker
 
-### TODO
+* `-e ST_USERNAME` to set password for the stracker admin pages.
+* `-e ST_PASSWORD` to set the username for the stracker admin pages.
+* `-e ST_HTTP_PORT` to change the port of stracker. Defaults to `50041`.
+* `-e ST_SERVER_NAME` for tagging sessions in stracker. Defaults to `acserver`.
+* `-e ST_PROXY_PLUGIN_PORT`. Defaults to `11001`.
+* `-e ST_PROXY_LOCAL_PORT`. Defaults to `11002`.
 
-* Add windows support.
-* Add `PTRACKER_PORT` ENV variable.
+
+#### MinoRating
+
+* `-e MR_GRADES`. Minorating allowed grades. Defaults to `ABCN`.
+* `-e MR_PLUGIN_PORT`. Defaults to `10003`.
+* `-e MR_LOCAL_PORT`. Defaults to `10004`.
+* `-e MR_PROXY_PLUGIN_PORT`. Defaults to `10005`.
+* `-e MR_PROXY_LOCAL_PORT`. Defaults to `10006`.
+
+
+#### AC_TrackCycle
+
+* `-e TC_WELCOME_MESSAGE`. Server chat welcome message from TrackCycle.
+* `-e TC_PLUGIN_PORT`. Defaults to `10005`.
+* `-e TC_LOCAL_PORT`. Defaults to `10006`.
 
 ### User / Group identifiers
 
