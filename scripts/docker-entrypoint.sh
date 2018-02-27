@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export INSTALL_PATH="/steamapps/${ASSETTO_FOLDER}"
+export INSTALL_PATH="/steamapps/${AC_FOLDER}"
 
 install-all.sh
 

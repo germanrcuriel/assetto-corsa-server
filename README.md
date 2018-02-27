@@ -33,8 +33,6 @@ For a list of complete parameters, see below.
 * `-e TZ` for timezone information, for example, `Europe/Madrid`.
 * `-e STEAM_USER` for your Steam account username. **Mandatory**.
 * `-e STEAM_PASSWORD` for your Steam account password. **Mandatory**.
-* `-e ASSETTO_FOLDER` for the folder name you want to create for the installation. Defaults to `assetto`.
-* `-e FORCE_UPDATE` if set, it will force update Assetto Corsa Dedicated Server.
 
 * `-p 8081:8081` Default Assetto Corsa HTTP port. **Mandatory**. Change it if `AC_HTTP_PORT` is different.
 * `-p 9600:9600` Default Assetto Corsa TCP port. **Mandatory**. Change it if `AC_TCP_PORT` is different.
@@ -46,6 +44,8 @@ For a list of complete parameters, see below.
 
 #### Assetto Corsa Dedicated Server
 
+* `-e AC_FOLDER` for the folder name you want to create for the installation. Defaults to `assetto`.
+* `-e AC_FORCE_UPDATE` if set, it will force update Assetto Corsa Dedicated Server.
 * `-e AC_SERVER_NAME` for the public server name. Defaults to `AC_Server`.
 * `-e AC_PASSWORD` for setting a password to join the server.
 * `-e AC_ADMIN_PASSWORD` for setting the admin password to handle the server.

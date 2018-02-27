@@ -35,6 +35,6 @@ if [ ! -f $INSTALL_PATH/acServer ];  then
   setup_assetto
 fi
 
-if [ -n "${ASSETTO_FORCE_UPDATE}" ]; then
+if [ -n "${AC_FORCE_UPDATE}" ]; then
   install_assetto "Updating"
 fi
