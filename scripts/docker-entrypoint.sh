@@ -11,7 +11,4 @@ cd $INSTALL_PATH/plugins/minorating
 nohup mono ./MinoRatingPlugin.exe >/dev/null 2>&1 &
 
 cd $INSTALL_PATH/plugins/track-cycle
-nohup mono ./AC_TrackCycle_Console.exe >/dev/null 2>&1 &
-
-cd $INSTALL_PATH
-./acServer
+mono ./AC_TrackCycle_Console.exe
