@@ -30,8 +30,8 @@ RUN dpkg --add-architecture i386 && \
 
 RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,stracker}" ]
 
-ADD https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz /opt/steamcmd/steamcmd.tar.gz
-ADD plugins/stracker-V3.5.1.zip /opt/stracker/stracker.zip
+ADD files/steamcmd_linux.tar.gz /opt/steamcmd/steamcmd.tar.gz
+ADD files/stracker-V3.5.1.zip /opt/stracker/stracker.zip
 
 ADD scripts/ /usr/local/bin
 
