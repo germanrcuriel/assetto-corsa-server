@@ -21,8 +21,6 @@
 This will install, config (for the first time only) and run:
 - [Assetto Corsa Dedicated Server](https://steamdb.info/app/302550/)
 - [stracker](http://www.n-e-y-s.de/main)
-- [MinoRating](http://www.minorating.com/)
-- [AC_TrackCycle](http://www.racedepartment.com/downloads/ac_trackcycle.6917/)
 
 For a list of complete parameters, see below.
 
@@ -62,24 +60,6 @@ For a list of complete parameters, see below.
 * `-e ST_PASSWORD` to set the username for the stracker admin pages.
 * `-e ST_HTTP_PORT` to change the port of stracker. Defaults to `50041`.
 * `-e ST_SERVER_NAME` for tagging sessions in stracker. Defaults to `acserver`.
-* `-e ST_PROXY_PLUGIN_PORT`. Defaults to `11001`.
-* `-e ST_PROXY_LOCAL_PORT`. Defaults to `11002`.
-
-
-#### MinoRating
-
-* `-e MR_GRADES`. Minorating allowed grades. Defaults to `ABCN`.
-* `-e MR_PLUGIN_PORT`. Defaults to `10003`.
-* `-e MR_LOCAL_PORT`. Defaults to `10004`.
-* `-e MR_PROXY_PLUGIN_PORT`. Defaults to `10005`.
-* `-e MR_PROXY_LOCAL_PORT`. Defaults to `10006`.
-
-
-#### AC_TrackCycle
-
-* `-e TC_WELCOME_MESSAGE`. Server chat welcome message from TrackCycle.
-* `-e TC_PLUGIN_PORT`. Defaults to `10005`.
-* `-e TC_LOCAL_PORT`. Defaults to `10006`.
 
 ### User / Group identifiers
 
