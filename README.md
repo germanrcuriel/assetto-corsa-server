@@ -24,6 +24,12 @@ This will install, config (for the first time only) and run:
 
 For a list of complete parameters, see below.
 
+**Important note**
+
+To be able to download Assetto Corsa Dedicated Server, you will need to provide a Steam account that **does not have Steam Guard enabled**.<br/>
+
+Recommendation is to create a new Steam account since the app is free and available for any logged in user.
+
 ### Parameters
 
 * `-e PUID` for UserID - see below for explanation.
