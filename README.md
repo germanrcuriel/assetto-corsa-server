@@ -44,7 +44,7 @@ Recommendation is to create a new Steam account since the app is free and availa
 * `-p 50041:50041` Default stracker HTTP port. **Mandatory**. Change it if `ST_HTTP_PORT` is different.
 * `-p 50042:50042` Default ptracker port. **Mandatory**. Change it if `ST_PTRACKER_PORT` is different.
 
-* `-v </path/to/install_dir>:/steamapps` - Base install path. **Mandatory**. A folder called `assetto` (or the one specified in `ASSETTO_FOLDER`) will be created under this volume.
+* `-v </path/to/install_dir>:/steamapps` - Base install path. **Mandatory**. A folder called `assetto` (or the one specified in `AC_FOLDER`) will be created under this volume.
 
 #### Assetto Corsa Dedicated Server
 

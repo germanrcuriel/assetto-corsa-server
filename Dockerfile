@@ -1,7 +1,7 @@
 FROM mono:latest
 MAINTAINER Germán Robledo <germix@germix.net>
 
-ENV ASSETTO_FOLDER=assetto
+ENV AC_FOLDER=assetto
 
 ENV STEAM_USER=
 ENV STEAM_PASSWORD=
