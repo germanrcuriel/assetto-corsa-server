@@ -15,8 +15,6 @@ if [ ! -d $STRACKER_PATH ]; then
     s/log_timestamps = False.*/log_timestamps = True/
     s/server_name = acserver.*/server_name = ${ST_SERVER_NAME}/
     s/items_per_page = 15.*/items_per_page = 20/
-    s/proxyPluginLocalPort = -1.*/proxyPluginLocalPort = ${ST_PROXY_LOCAL_PORT}/
-    s/proxyPluginPort = -1.*/proxyPluginPort = ${ST_PROXY_PLUGIN_PORT}/
   " stracker.ini
   cp -rf . $STRACKER_PATH
 fi

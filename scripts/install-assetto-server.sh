@@ -26,7 +26,6 @@ setup_assetto() {
     s/HTTP_PORT=8081.*/HTTP_PORT=${AC_HTTP_PORT}/
     s/UDP_PLUGIN_LOCAL_PORT=0.*/UDP_PLUGIN_LOCAL_PORT=${AC_PLUGIN_LOCAL_PORT}/
     s/UDP_PLUGIN_ADDRESS=.*/UDP_PLUGIN_ADDRESS=127.0.0.1:${AC_PLUGIN_ADDRESS_LOCAL_PORT}/
-    s#AUTH_PLUGIN_ADDRESS=.*#AUTH_PLUGIN_ADDRESS=127.0.0.1:${ST_HTTP_PORT}\/acauth?timeout=300%26andurl1=www.minorating.com%3A805/minodata/auth/${MR_GRADES}/%3F#
   " cfg/server_cfg.ini
 }
 
