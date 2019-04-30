@@ -14,14 +14,23 @@ ENV AC_ADMIN_PASSWORD=mypassword
 ENV AC_UDP_PORT=9600
 ENV AC_TCP_PORT=9600
 ENV AC_HTTP_PORT=8081
-ENV AC_PLUGIN_ADDRESS_LOCAL_PORT=10001
-ENV AC_PLUGIN_LOCAL_PORT=10002
+ENV AC_PLUGIN_LOCAL_PORT=11001
+ENV AC_PLUGIN_ADDRESS_LOCAL_PORT=12001
 
-ENV ST_USERNAME=
-ENV ST_PASSWORD=
-ENV ST_HTTP_PORT=50041
-ENV ST_PTRACKER_PORT=50042
-ENV ST_SERVER_NAME=acserver
+ENV UW_LOCAL_PORT=11001
+ENV UW_PLUGIN_PORT=12001
+ENV UW_PROXY_LOCAL_PORT=11003
+ENV UW_PROXY_PLUGIN_PORT=12003
+ENV UW_PASSWORD=mypassword
+ENV UW_PORT=30000
+
+ENV TC_WELCOME_MESSAGE=
+ENV TC_LOCAL_PORT=11003
+ENV TC_PLUGIN_PORT=12003
+ENV TC_PROXY_LOCAL_PORT=11002
+ENV TC_PROXY_PLUGIN_PORT=12002
+
+ENV SM_HTTP_PORT=9000
 
 RUN dpkg --add-architecture i386 && \
     apt-get update && \
@@ -30,10 +39,12 @@ RUN dpkg --add-architecture i386 && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,stracker}" ]
+RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,server-manager,track-cycle,udp2ws}" ]
 
 COPY files/steamcmd_linux.tar.gz /opt/steamcmd/steamcmd.tar.gz
-COPY files/stracker-V3.5.1.zip /opt/stracker/stracker.zip
+COPY files/server-manager_v1.2.2.zip /opt/server-manager/server-manager.zip
+COPY files/AC_TrackCycle_2.7.9.zip /opt/track-cycle/track-cycle.zip
+COPY files/udp2ws-v0.2.0.zip /opt/udp2ws/udp2ws.zip
 
 ADD scripts/ /usr/local/bin
 
