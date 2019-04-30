@@ -4,7 +4,7 @@ UDP2WS_PATH="$INSTALL_PATH/plugins/udp2ws"
 
 cd /opt/udp2ws/linux_x64
 
-if [ ! -d $udp2ws ]; then
+if [ ! -d $UDP2WS_PATH ]; then
   sed -i "
     s/proxyPluginLocalPort =.*/proxyPluginLocalPort = ${UW_PROXY_LOCAL_PORT}/
     s/proxyPluginPort =.*/proxyPluginPort = ${UW_PROXY_PLUGIN_PORT}/

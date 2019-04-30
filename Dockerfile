@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Germán Robledo <germix@germix.net>
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -19,16 +19,10 @@ ENV AC_PLUGIN_ADDRESS_LOCAL_PORT=12001
 
 ENV UW_LOCAL_PORT=11001
 ENV UW_PLUGIN_PORT=12001
-ENV UW_PROXY_LOCAL_PORT=11003
-ENV UW_PROXY_PLUGIN_PORT=12003
+ENV UW_PROXY_LOCAL_PORT=11002
+ENV UW_PROXY_PLUGIN_PORT=12002
 ENV UW_PASSWORD=mypassword
 ENV UW_PORT=30000
-
-ENV TC_WELCOME_MESSAGE=
-ENV TC_LOCAL_PORT=11003
-ENV TC_PLUGIN_PORT=12003
-ENV TC_PROXY_LOCAL_PORT=11002
-ENV TC_PROXY_PLUGIN_PORT=12002
 
 ENV SM_HTTP_PORT=9000
 
@@ -39,11 +33,10 @@ RUN dpkg --add-architecture i386 && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,server-manager,track-cycle,udp2ws}" ]
+RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,server-manager,udp2ws}" ]
 
 COPY files/steamcmd_linux.tar.gz /opt/steamcmd/steamcmd.tar.gz
 COPY files/server-manager_v1.2.2.zip /opt/server-manager/server-manager.zip
-COPY files/AC_TrackCycle_2.7.9.zip /opt/track-cycle/track-cycle.zip
 COPY files/udp2ws-v0.2.0.zip /opt/udp2ws/udp2ws.zip
 
 ADD scripts/ /usr/local/bin

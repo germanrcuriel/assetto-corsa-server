@@ -20,10 +20,3 @@ if [ -f /opt/udp2ws/udp2ws.zip ]; then
   unzip -qq udp2ws.zip
   rm udp2ws.zip
 fi
-
-if [ -f /opt/track-cycle/track-cycle.zip ]; then
-  echo ">>> Installing track-cycle"
-  cd /opt/track-cycle
-  unzip -qq track-cycle.zip
-  rm track-cycle.zip
-fi
