@@ -29,11 +29,7 @@ setup_assetto() {
   " cfg/server_cfg.ini
   
   rm -rf $INSTALL_PATH/content
-  rm -rf $INSTALL_PATH/presets
-  rm -rf $INSTALL_PATH/setups
   ln -sF /steamapps/shared/assetto/content $INSTALL_PATH/content
-  ln -sF /steamapps/shared/assetto/presets $INSTALL_PATH/presets
-  ln -sF /steamapps/shared/assetto/setups $INSTALL_PATH/setups
 }
 
 if [ ! -f $INSTALL_PATH/acServer ];  then
