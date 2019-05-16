@@ -37,7 +37,7 @@ RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,server-manager,udp2ws}
 
 COPY files/steamcmd_linux.tar.gz /opt/steamcmd/steamcmd.tar.gz
 COPY files/server-manager_v1.3.0.zip /opt/server-manager/server-manager.zip
-COPY files/udp2ws-v0.3.0.zip /opt/udp2ws/udp2ws.zip
+COPY files/udp2ws-v0.3.1.zip /opt/udp2ws/udp2ws.zip
 
 ADD scripts/ /usr/local/bin
 
