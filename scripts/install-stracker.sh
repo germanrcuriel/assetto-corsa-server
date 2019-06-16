@@ -1,13 +1,13 @@
 #!/bin/sh
 
-STRACKER_PATH="$INSTALL_PATH/plugins/server-manager/stracker"
+STRACKER_PATH="$INSTALL_PATH/plugins/stracker"
 
 cd /opt/stracker
 
 if [ ! -d $STRACKER_PATH ]; then
-  cp stracker-default.ini stracker.ini
+  cp stracker-default.ini stracker_linux_x86/stracker.ini
   sed -i "
-    s/ac_server_cfg_ini =.*/ac_server_cfg_ini = \.\.\/\.\.\/cfg\/server_cfg.ini/
+    s/ac_server_cfg_ini =.*/ac_server_cfg_ini = \.\.\/\.\.\/\.\.\/cfg\/server_cfg.ini/
     s/listening_port =.*/listening_port = ${ST_PORT}/
     s/log_timestamps = False.*/log_timestamps = True/
     s/server_name = acserver.*/server_name = ${ST_SERVER_NAME}/
@@ -32,7 +32,6 @@ if [ ! -d $STRACKER_PATH ]; then
     s/proxyPluginPort =.*/proxyPluginPort = ${ST_PROXY_PLUGIN_PORT}/
     s/rcvPort =.*/rcvPort = ${ST_RCV_PORT}/
     s/sendPort =.*/sendPort = ${ST_SEND_PORT}/
-  " stracker.ini
-  mkdir -p $STRACKER_PATH
+  " stracker_linux_x86/stracker.ini
   cp -rf . $STRACKER_PATH
 fi
