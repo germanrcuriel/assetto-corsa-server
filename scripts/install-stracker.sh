@@ -1,6 +1,6 @@
 #!/bin/sh
 
-STRACKER_PATH="$INSTALL_PATH/plugins/stracker"
+STRACKER_PATH="$INSTALL_PATH/plugins/server-manager/stracker"
 
 cd /opt/stracker
 
@@ -33,5 +33,6 @@ if [ ! -d $STRACKER_PATH ]; then
     s/rcvPort =.*/rcvPort = ${ST_RCV_PORT}/
     s/sendPort =.*/sendPort = ${ST_SEND_PORT}/
   " stracker.ini
+  mkdir -p $STRACKER_PATH
   cp -rf . $STRACKER_PATH
 fi

@@ -52,7 +52,7 @@ RUN dpkg --add-architecture i386 && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,server-manager,stracker,udp2ws}" ]
+RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,server-manager,udp2ws}" ]
 
 COPY files/steamcmd_linux.tar.gz /opt/steamcmd/steamcmd.tar.gz
 COPY files/server-manager_v1.3.2.zip /opt/server-manager/server-manager.zip
