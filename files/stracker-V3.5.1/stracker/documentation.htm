@@ -1,0 +1,1153 @@
+<!-- title="ST Doc" nav="stracker Manual" index=3 sections=auto -->
+
+<div>
+    <h1>Installation</h1>
+    
+    <h2>Step by Step guide for the impatient (for windows)</h2>
+    <ol>
+        <li>Create a new directory {{r"C:\AC\stracker"}}.</li>
+        <li>Unzip the content of <code>{{r"stracker-V<X.Y.Z>.zip"}}</code> into the new directory 
+            (such that there is the file <code>{{r"C:\AC\stracker\stracker.exe"}}</code>)</li>
+        <li>Copy <code>{{r"C:\AC\stracker\stracker-default.ini"}}</code> to <code>{{r"C:\AC\stracker\stracker.ini"}}</code></li>
+        <li>Open <code>{{r"C:\AC\stracker\stracker.ini"}}</code> with a text editor (e.g. notepad)</li>
+        <li>Set the option ac_server_cfg_ini to the path of the config file of your acServer:
+        <pre>
+[STRACKER_CONFIG]
+ac_server_cfg_ini = ../server/cfg/server_cfg.ini</pre></li>
+        <li>Open the TCP port 50042 in all your firewalls (enable port forwarding if necessary). 
+            The port shall be reported as open by a port checker, e.g. 
+            <a href="http://www.yougetsignal.com/tools/open-ports/">www.yougetsignal.com</a></li>
+        <li>Configure the AC server for UDP plugin usage. Open your server_cfg.ini with a text editor.</li>
+        <li>Make sure that the UDP options are set as follows: 
+            <pre>
+[SERVER]
+UDP_PLUGIN_LOCAL_PORT=11000
+UDP_PLUGIN_ADDRESS=127.0.0.1:12000</pre>
+            </li>
+        <li>Start the acServer.exe as usual.</li>
+        <li>Start stracker by a double click on the file start-stracker.cmd. You should see a 
+            windows cmd window (black) with some text in it. </li>
+        <li>To test it is best to log into your server in-game and see if ptracker shows the green connection icon
+            in it's status line. If so, everything is good.</li>
+    </ol>
+    
+    <hr>
+    
+    <h2>Detailed explanation of common installation options</h2>
+    
+    <h3>HTTP output</h3>
+    <p>
+    Most users will want to get the http output similarly to <a href=neys_servers>this</a>. To set this up, open
+    <code>stracker.ini</code> with a text editor and change these options:
+    <pre>
+[HTTP_CONFIG]
+enabled = True
+listen_port = 50041</pre>
+    Do <b>not</b> change the <code>listen_addr</code> option. It has to be set to <code>0.0.0.0</code> for a working server.
+    Open the TCP port 50041 in your server's firewall. Restart stracker. In your browser go to the internet address
+    <code>http://&lt;your_server_ip_address&gt;:50041/</code>. You should see a page similar to this 
+    <a href=neys_servers>this</a>. If not, double check that the port 50041 is really open for your server 
+    (use <a href="http://www.yougetsignal.com/tools/open-ports/">www.yougetsignal.com</a>).
+    </p>
+    <p>
+    You might want to create an admin account, so that you can change certain settings from the browser
+    which are not accessable for normal visitors. To enable the admin account, change these settings in
+    <code>stracker.ini</code>:
+    <pre>
+[HTTP_CONFIG]
+admin_password = your_password_safe_and_secure
+admin_username = your_admin_user_name</pre>
+    After an stracker restart you should be able to log in as admin with the button at the upper right.
+    </p>
+    <p>
+    You can assign a banner alternatively to the default Assetto Corsa banner. To do this, copy an image file
+    (normally .png format is used for that) to the directory containing stracker.exe and set this in the
+    stracker.ini file:
+    <pre>
+[HTTP_CONFIG]
+banner = mybanner.png</pre>    
+    After an stracker restart, you should see your banner on the screen. Experiment with different sizes.
+    </p>
+    
+    <hr>
+
+    <h3>Linux Support</h3>
+    <p>
+    stracker runs natively on linux machines. Assuming that you want to install stracker to the directory
+    <code>/opt/stracker</code>, you can use the following steps for installation:
+    <pre>
+# remove old installation (but keep your stracker.ini file!)
+mkdir /opt/stracker
+cd /opt/stracker
+unzip stracker-x-y-z.zip
+rm -rf stracker_linux_x86
+tar xvzf stracker_linux_x86.tgz</pre>
+    Afterwards the linux executable stracker_linux_x86/stracker can be used just as the windows 
+    executable stracker.exe and this documentation applies to both linux and windows. Note that it is 
+    important that the archive is unpacked to a directory underneath the stracker installation directory. 
+    Otherwise stracker will not be able to find some files needed to run.
+    </p>
+    <p>Users reported the following package dependencies for different distros:
+    <ul>
+        <li>Ubuntu 14.04: <code>apt-get install -y libc6:i386 libgcc1:i386 libstdc++6:i386 libz1:i386</code></li>
+        <li>CentOs: <code>yum install zlib.i686</code></li>
+        <li>Debian: <code>apt-get install libc6-i386</code></li>
+    </ul>
+    </p>
+    <p>
+    I recommend the use of the <a href="http://www.linuxforums.org/articles/the-screen-program_55.html">screen</a>
+    command to run stracker in the background.
+    </p>
+    
+    <hr>
+
+    <h3>Blacklist support</h3>
+    
+    <h4>Traditional blacklist support</h4>
+    
+    Traditional blacklist support has been removed with version 3.5.0.
+    
+    <h4>Blacklist support in combination with acauth</h4>
+    There is also the possibility to use the authentication feature for blacklist support and not use
+    a blacklist.txt file for the server. Note that you have to issue your bans through stracker's http
+    server (in the driver's page) to make this work. I plan to support this directly in game via ptracker
+    in the 3.2.x versions.
+    
+    You still have to manually kick the player from the server (also planned to be automated in 3.2.x).
+    
+    This feature needs ptracker 3.1.5 to work because you won't be able to access the ban options when
+    no blacklist.txt file is specified in former versions.
+    
+    <hr>
+
+    <h3>Player groups</h3>
+    Since version 2.5.0, player groups were introduced (at this time, these are used for storing setups in the 
+    database only group member will be able to access). Player groups can be altered by stracker admins using 
+    the same mechanisms as the banlist.
+
+    <hr>
+
+    <h3>Championship Management</h3>
+    <p>
+    Since version 2.6.0, championship management is available in stracker. Championships are organized in the
+    following way: A "Championship season" consists of multiple "Championship events". Each event can be linked 
+    to one or more sessions (i.e., qualification, short race, long race, or whatever scheme you would like). 
+    Each session can be linked to a "Championship Point Schema" which defines how many points a player gets 
+    for a specific finish position.
+    </p>
+    <p>
+    Setting up a new championship is done in the following steps in the HTML interface:</p>
+    <ol>
+    <li>Become admin by clicking the upper right "Admin Area" button (an admin username and password has to be configured in stracker.ini).</li>
+    <li>Click on the "Championships" button</li>
+    <li>Click on the "Manage championship point schemata" button</li>
+    <li>Add at least one championship schema (give it a unique name, e.g., "2015_LongRace")</li>
+    <li>Go back to the "Championships" view </li>
+    <li>Add a new Championship (give it a unique name, e.g., "Season 2015")</li>
+    <li>Add a new Event (give it a name, e.g., "Ruf @ Spa")</li>
+    <li>Go to the "Sessions" view</li>
+    <li>Select a session you want to associate to the event</li>
+    <li>(optional) do some manual corrections using the penalty system</li>
+    <li>Give the session a name (e.g., "quali")</li>
+    <li>Select the point schema</li>
+    <li>Click on the "Add" Button.</li>
+    <li>(Continue with point 7. or 9.)  </li>  
+    </ol>
+    
+    <hr>
+
+    <h3>Authentication</h3>
+    Since version 3.0.2, stracker can be configured for AC's authentication system. For this, http support must 
+    be enabled and you need to change the <code>server_cfg.ini</code> file:
+<pre>
+AUTH_PLUGIN_ADDRESS=127.0.0.1:&lt;stracker_http_port&gt;/acauth?
+</pre>
+    
+Use this page as target for server_cfg.ini's AUTH_PLUGIN_ADDRESS=127.0.0.1:&lt;stracker_http_port&gt;/acauth? <br>
+You can use the following arguments after ?:
+<ul>
+    <li>track:  The track name used for lap stat filtering. If omitted, the current combo will be used (for multiserver setups, be sure to set the server argument)</li>
+    <li>cars:   The cars used for lap stat filtering (comma seperated). If omitted the current combo will be used (for multiserver setups, be sure to set the server argument)</li>
+    <li>server: The stracker server name of the server used for lap stat filtering. If omitted, lap times of all servers will be queried.</li>
+    <li>valid:  Which laps shall be taken into account (comma seperated list of integers). If omitted, valid and unknown laps will be used (0,1). </li>
+    <li>tyre_list: The list of tyre used for lap stat filtering (comma seperated). If omitted all tyres will be used.</li>
+    <li>groups: The list of groups (comma seperated list of integer ids) used for lap stat filtering. If omitted all drivers will be used.</li>
+    <li>minNumLaps: The minimum number of laps done for this combo.</li>
+    <li>maxTimePercentage: If the user's best lap time (according to prior definitions) is out of bounds, he will not be able to join the server. </li>
+    <li>maxRank: If the user's rank in the best lap time statistics (according to prior definitions) is out bounds, he will not be able to join the server.</li>
+    <li>andurl1: Additional auth URL (quoted). The auth request will only pass, if the result of this URL is OK. URL's need to be quoted, i.e. replace
+                 ':' characters with %3A, '?' characters with %3F and '&amp;' characters with %26. Example for minorating: <br>andurl1=plugin.minorating.com%3A805/minodata/auth/ABCN/%3F</li>
+    <li>andurl2: further url to be checked (format is as andulr1).</li>
+    <li>andurl3: further url to be checked (format is as andulr1).</li>
+    <li>andurl4: further url to be checked (format is as andulr1).</li>
+    <li>andurl5: further url to be checked (format is as andulr1).</li>
+    <li>timeout: Timeout in milliseconds for the request. After the timeout has passed, the user will be denied and asked to try again. Default no timeout. Note that
+                 it is highly recommended to apply a timeout to the query because long running queries are known to cause server lags (for me it started around 100 ms). If you
+                 are using none of minNumLaps, maxTimePercentage or maxRank users shall normally not encounter a timeout because the queries are optimized. If you are using
+                 one of the above, your users might have to reconnect when they get an AUTH message notifying about a timeout. It is generally not possible to keep the runtime
+                 of the needed queries low enough without caching them.
+    </li>
+</ul>
+Blacklisted players are never authorized. <br>
+Whitelisted players are always authorized. <br>
+<br>
+Examples:
+    <ul>
+        <li>
+            <i>AUTH_PLUGIN_ADDRESS=127.0.0.1:50041/acauth?track=nurburgring&amp;cars=bmw_m3_e30,ks_audi_sport_quattro&amp;server=acserver&amp;valid=1,2&amp;tyre_list=(SV),(ST)&amp;maxTimePercentage=105&amp;maxRank=15&amp;</i>
+            <br>
+            This example filters the best lap times on the nurburgring achieved on the server named acserver with BMW M3 E30 or the Audi quattro.
+            Only valid or unknown laps are considered, on Street Vintage or Street tyres. If the user's best lap is within 105 percent of the server's best lap and
+            the rank of the player is below or equal to 15, the player is allowed to enter the server.
+        </li>
+        <li>
+            <i>AUTH_PLUGIN_ADDRESS=127.0.0.1:50041/acauth?server=acserver&amp;minNumLaps=20&amp;</i>
+            <br>
+            This allows all drivers who drove at least 20 laps on acserver with acserver's current combo.
+        </li>
+        <li>
+            <i>AUTH_PLUGIN_ADDRESS=127.0.0.1:50041/acauth?server=acserver&amp;minNumLaps=1&amp;groups=4,5&amp;</i>
+            <br>
+            This allows all drivers of specific groups (who have driven at least one lap on acserver's current combo).
+            Specifying group only has effeccts together with at least one of minNumLaps, maxTimePercentage or maxRank.
+            The group has to be specified with the numeric identifier. You get this identifier by selecting the group
+            in the lapstat page and inspecting the generated url.
+        </li>
+    </ul>
+
+    Note: You can get this help text when you open this page in a browser: 
+    http://<server_ip>:<stracker_http_port>/admin/acauth.
+
+    <hr>
+
+    <h3>Session management</h3>
+    Starting with version 3.1.x, stracker comes with a basic session management. At the moment, it supports to 
+    automatically skip race sessions when the drivers actively participating in the race are finished. 
+    Session management can be enabled with these <code>stracker.ini</code> settings:
+<pre>
+[SESSION_MANAGEMENT]
+race_over_strategy = skip
+wait_secs_before_skip = 15
+</pre>
+    There is also the possibility to control the session times and number of laps with admin-like commands.
+    Therefore, the driver must be part of a group called admins. Type /help in-game to get a list of commands.
+    
+    <hr>
+
+    <div id="proxy"></div><h3>UDP Plugin API Proxy</h3>
+    stracker has the ability to forward the UDP protocol to other plugins with the settings
+    <code>proxyPluginPort</code> and <code>proxyPluginLocalPort</code>. For example, with these settings it is
+    possible to run minorating and stracker at the same time. Here is an example how to use them: In 
+    <code>stracker.ini</code>, set these options (you have to use unused UDP ports for the proxy, here I've chosen
+    10004 and 10003):
+<pre>
+# stracker.ini
+[ACPLUGIN]
+; proxy the AC server protocol on these ports, so multiple plugins may be chained (this is equivalent to UDP_PLUGIN_LOCAL_PORT in server_cfg.ini)
+proxyPluginLocalPort = 10004
+; proxy the AC server protocol on these ports, so multiple plugins may be chained (this is equivalent to UDP_PLUGIN_ADDRESS in server_cfg.ini)
+proxyPluginPort = 10003
+; udp port the plugins receives from. -1 means to use the AC servers setting UDP_PLUGIN_ADDRESS
+rcvPort = -1
+; udp port the plugins sends to. -1 means to use the AC servers setting UDP_PLUGIN_LOCAL_PORT
+sendPort = -1
+</pre>
+    In minorating, the following lines need to be added to the configuration <code>MinoRatingPlugin.exe.config</code>:
+<pre>{{r"""<!-- append the following lines to your minorating configuration file: -->
+    
+<!-- AcServer/proxy listening port like defined in UDP_PLUGIN_LOCAL_PORT. Uncomment to override it (Proxy/Relay), otherwise MR will read it from the config -->
+<add key="ac_server_port" value="10004" />
+<!-- Plugin listening port towards acServer/proxy like defined in UDP_PLUGIN_ADDRESS=12000 (without 127.0.0.1, port number only) -->
+<!-- Uncomment to override it (Proxy/Relay), otherwise MR will read it from the config -->
+<add key="plugin_port" value="10003" />
+"""}}
+</pre>
+    
+    <hr>
+
+    <h3>Database choice</h3>
+    <p>
+    By default, stracker will use the <a href="https://www.sqlite.org/">sqlite3</a> database. This database is 
+    stored as a file on your disk, normally called <code>stracker.db3</code>. The advantage of this database is 
+    the ease of use without any installation effort. One of the limitations of sqlite is that you cannot 
+    access this database accross computers. Storing the .db3 file on a network share will <b>not</b> work. 
+    Performance-wise, sqlite3 might be also a bit slower than the postgresql database.
+    </p>
+    <p>
+    If you need or want a real database backend for stracker, you can go the 
+    <a href="http://www.postgresql.org/">postgresql</a> route. I am testing with version 9.1, but newer versions 
+    should be working as well. To use this you have to install postgresql (normally on the machine running stracker and 
+    acServer) and prepare a database user and a database. This can be achieved with the following SQL statements:
+    <pre>
+CREATE USER pgstracker WITH PASSWORD 'pgstrackerpass';
+CREATE DATABASE stracker OWNER pgstracker;</pre>
+    </p>
+    <p>
+    <b>Note:</b> On my Ubuntu 12.04 server, I had to find out that there is a 
+    <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=790507">bug</a> also existing on many debian based 
+    linuxes. This results in a default encoding scheme of ascii for new databases, which is not what you want to 
+    have. You will get errors as soon as drivers with non ascii characters are joining the server and perform laps.
+    To check, if you are affected from this, issue the command <code>psql -l</code>. The output shall look like
+    this:
+<pre>
+                             List of databases
+   Name    |  Owner     | Encoding  | Collate | Ctype |   Access privileges
+-----------+------------+-----------+---------+-------+-----------------------
+ postgres  | postgres   | SQL_ASCII | C       | C     |
+ stracker  | pgstracker | <b>UTF8</b>      | C       | C     |
+ template0 | postgres   | SQL_ASCII | C       | C     | =c/postgres          +
+           |            |           |         |       | postgres=CTc/postgres
+ template1 | postgres   | SQL_ASCII | C       | C     | =c/postgres          +
+           |            |           |         |       | postgres=CTc/postgres
+</pre>
+    If your database has the encoding <code>SQL_ASCII</code> instead, you can switch to UTF8 by the SQL command
+<pre>
+UPDATE pg_database SET encoding = pg_char_to_encoding('UTF8') WHERE datname='stracker';
+</pre>
+    This command is safe, if you don't have any data in your database yet and it <i>should</i> be safe, if 
+    you only used stracker to get data in your database.
+    </p>
+    Now you have to tell stracker to use the new database. To do this, stop any running stracker instances, 
+    open stracker.ini and change these settings:
+    <pre>
+[DATABASE]
+database_type = postgres
+postgres_db = stracker
+postgres_host = 127.0.0.1
+postgres_pwd = pgstrackerpass
+postgres_user = pgstracker</pre>
+    Afterwards restart stracker and it will use the postgresql database. Use the stracker command line options
+    <code>--migrate_from_sqlite3</code> and <code>--perform_backup</code> to switch between sqlite3 and postgresql
+    databases.
+
+    <hr>
+
+    <h3>Multiserver Setup</h3>
+    Stracker can be run on machines running multiple AC server instances. There are two different configurations 
+    possible:
+    <h4>For each AC server instance run stracker and use the same database for the stracker instances</h4>
+    For each instance of stracker, you need a seperate .ini file. You can keep them in the stracker directory and 
+    give them names matching your server (e.g., stracker-firstserver.ini). Assign different server_name settings 
+    to each stracker instance. Choose different listening ports for each stracker instance in the STRACKER_CONFIG 
+    section (these ports will be used by ptracker to connect to stracker). When using sqlite3, you can point all 
+    the stracker instances to the same db3 file:
+<pre>
+#stracker-firstserver.ini
+
+[STRACKER_CONFIG]
+# choose different listening ports for each stracker instance (50042, 50043, 54242, 54243, 60023, 60024, 62323, 62324, 42423, 42424, 23232, 23233)
+listening_port = 50042
+server_name = firstserver
+ac_server_cfg_ini = C:\acserver\first_server_cfg\server_cfg.ini
+#...
+
+[DATABASE]
+database_type = sqlite3
+database_file = ./stracker.db3
+#...
+
+[HTTP_CONFIG]
+# only one stracker.ini file shall have enabled = True, all others shall have enabled = False
+enabled = True 
+#...
+</pre>
+    This approach is working (sqlite3 supports parallel db access from multiple processes) as long as all stracker 
+    instances have access to the same file system (i.e., they are running on the same machine). If your AC servers 
+    are spread over multiple machines, your option is to use the postgresql database support which perfectly 
+    supports the multiple machine scenario.<br>
+
+    Choose one stracker instance as the http server and disable it on all other instances.<br>
+
+    <b>PLEASE NOTE</b>: Version upgrade procedure in case of multi-server instances connected to the same .db3 file:
+
+    <ol>
+        <li>Shut down all old stracker instances</li>
+        <li>Make a backup of your .db3 file</li>
+        <li>Start one and only one stracker instance which will then perform a database migration if necessary.</li>
+        <li>Wait until stracker is running smoothly (and fix all configuration issues).</li>
+        <li>Start the other stracker instances.</li>
+    </ol>
+
+    <h4>For each AC server instance run stracker and use different databases for the stracker instances</h4>
+    This approach is similar to a), but you choose different databases for each stracker instance. If you want 
+    to enable http, you need to enable the support in each stracker instance and specify different ports to 
+    listen.
+<pre>
+#stracker-firstserver.ini
+
+[STRACKER_CONFIG]
+# choose different listening ports for each stracker instance (50042, 50043, 54242, 54243, 60023, 60024, 62323, 62324, 42423, 42424, 23232, 23233)
+listening_port = 50042
+server_name = firstserver
+#...
+
+[DATABASE]
+database_type = sqlite3
+database_file = ./stracker-firstserver.db3
+#...
+
+[HTTP_CONFIG]
+enabled = True 
+# use different listen_port settings for each stracker instance!
+listen_port = 42223
+</pre>
+ 
+    <hr>
+
+    <h2>List of Ports used by acServer and stracker</h2>
+    <table class="table table-striped table-condensed table-bordered table-hover">
+        <thead>
+            <th>Port name</th>
+            <th>Configuration file</th>
+            <th>Configuration item</th>
+            <th>Remarks</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>AC http port</td><td>server_cfg.ini</td><td>SERVER/HTTP_PORT</td><td>HTTP Output generated by the AC server ({{"http://<ip_address>:<HTTP_PORT>/ENTRY"}}). Used by the launcher.</td>
+            </tr>
+            <tr>
+                <td>AC UDP port</td><td>server_cfg.ini</td><td>SERVER/UDP_PORT</td><td>UDP Port used to communicate with the remote AC game instances</td>
+            </tr>
+            <tr>
+                <td>AC TCP port</td><td>server_cfg.ini</td><td>SERVER/TCP_PORT</td><td>TCP Port used to communicate with the remote AC game instances</td>
+            </tr>
+            <tr>
+                <td>Plugin UDP port 1</td><td>server_cfg.ini</td><td>SERVER/UDP_PLUGIN_ADDRESS</td><td>AC sends information to this address normally {{"127.0.0.1:<port_number>"}}</td>
+            </tr>
+            <tr>
+                <td>Plugin UDP port 2</td><td>server_cfg.ini</td><td>SERVER/UDP_PLUGIN_LOCAL_PORT</td><td>Plugins can send requests to the AC server using this port</td>
+            </tr>
+            <tr>
+                <td>stracker listening port</td><td>stracker.ini</td><td>STRACKER_CONFIG/listening_port</td><td>TCP port used to listen for stracker/ptracker connections</td>
+            </tr>
+            <tr>
+                <td>stracker http port</td><td>stracker.ini</td><td>HTTP_CONFIG/listen_port</td><td>This is the port used for the stracker http output {{"(http://<ip_address>:listen_port)"}}. Only specific values are allowed there.</td>
+            </tr>
+            <tr>
+                <td>stracker rcvPort</td><td>stracker.ini</td><td>ACPLUGIN/rcvPort</td><td>If you use only one plugin (stracker) or stracker is the main plugin, you can leave that at -1</td>
+            </tr>
+            <tr>
+                <td>stracker sendPort</td><td>stracker.ini</td><td>ACPLUGIN/sendPort</td><td>If you use only one plugin (stracker) or stracker is the main plugin, you can leave that at -1</td>
+            </tr>
+            <tr>
+                <td>proxyPluginPort</td><td>stracker.ini</td><td>ACPLUGIN/proxyPluginPort</td><td>If >= 0, the plugin protocol is forwarded to this port (this port can then be used as the Plugin UDP port 1)</td>
+            </tr>
+            <tr>
+                <td>proxyPluginLocalPort</td><td>stracker.ini</td><td>ACPLUGINproxyPluginLocalPort</td><td>if >= 0, the plugin protocol is forwarded to this port (this port can then be used as the Plugin UDP port 2)</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h1>FAQ</h1>
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        Does ptracker or stracker store my setups?
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    No. Your setups are private and you have full control over it. If you do not send a set to someone else, 
+                    your set stays on your computer. If you send a set to someone, stracker will forward it and delete it 
+                    immediately after it has been delivered. <br>
+                    The obvious exception is when you use stracker's setup deposit. In this case, the set is stored in the server's
+                    database.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        How can I run Minorating and stracker at the same time?
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    You have two options:
+                    <ol>
+                        <li>Use the proxy feature of stracker. This is explained <a href="#proxy">here on this page</a>. 
+                        The advantage of this method is that you only need stracker and minorating and no further 
+                        plugins. Minorating will only work if stracker is running (if stracker is down, minorating
+                        will be down also).</li>
+                        <li>Use <a href="http://assettocorsamods.net/resources/acsrelay.97/">ACSRelay</a>. At the time
+                        writing this, ACSRelay is still classified beta, but users reported it to be functional. With
+                        the price of another plugin running, you have the possibility to run as many plugins behind the
+                        relay as you wish.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                        I'm having troubles understanding the multiserver setup. Is there an example?
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+                    You can have a look at <a href="neys_server_config">my server configuration</a>. Though at some points
+                    specific to linux, you can learn my concept for the directory structure and used ports (I change the 
+                    port numbers for security reasons, though).
+                </div>
+             </div>            
+        </div>        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+                        Problem: stracker starts, but ptracker clients cannot connect (you can get some error messages from ptracker in the file py_log.txt).
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse6" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Maybe the port is still blocked by your firewall. Check that the port is open with an internet port checker, e.g.: http://www.portcheckers.com/
+                    When stracker runs correctly, the port you configured in the stracker.ini file must be reported as open. If it is not, check your firewall
+                    settings.
+                </div>
+             </div>            
+        </div>        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+                        My server displays "No map available" in the Live Map tab. How can I display a map?
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Go to the admin area, click on General Admin and upload the user interface data as described on that page.
+                </div>
+             </div>            
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse7_5">
+                        When I try to run stracker-packager to upload the map/car data to the server I get an error. What can I do?
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse7_5" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Maybe stracker-packager cannot find your AC installation. Try to run it manually like this: <code>stracker-packager.exe D:\whereever\you\have\installed\AC</code>
+                </div>
+             </div>            
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse8">
+                        The live map isn't aligned correctly. How can I solve this?
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse8" class="panel-collapse collapse">
+                <div class="panel-body">
+                    The live map works only with firefox and chrome, and not with Internet Explorer.
+                </div>
+             </div>            
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse9">
+                        How is the valid flag for laps calculated?
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse9" class="panel-collapse collapse">
+                <div class="panel-body">
+                    It's calculated using the following pseudo code:
+<pre>
+valid = 2
+if ptracker_connected:
+    valid = ptracker_valid_flag
+if valid != 0 and lap_contains_unreliable_movement: # this is true for out laps
+    valid = 2
+if valid == 2 and penaltiesEnabled and cuts == 0:
+    valid = 1
+if config.LAP_VALID_CHECKS.invalidateOnCarCollisions and collisionCarCount > 0:
+    valid = 0
+if config.LAP_VALID_CHECKS.invalidateOnEnvCollisions and collisionEnvironmentCount > 0:
+    valid = 0
+if lap.lapCount == 1 and valid == 2:
+    valid = 0
+</pre>
+                </div>
+             </div>            
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1000">
+                        I read all this documentation and stracker still doesn't run. What should I do?
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse1000" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Please perform the following steps:
+                    <ol>
+                        <li>Open the file <code>stracker.log</code> and see if there is an obvious error to the end of the file.
+                        You might be able to correct this depending on the error messages.</li>
+                        <li>Post your question to either the 
+                        <a href="http://www.assettocorsa.net/forum/index.php?threads/ptracker-stracker-v3-0-fix-network-bandwidth-problems.13169/">
+                        ptracker thread in AC forum</a> or the <a href="http://www.racedepartment.com/downloads/stracker.3510/">stracker thread
+                        on RD</a>. In order to help me with the question, please please please attach the following files to the question:
+                        <ul>
+                            <li><code>stracker.log</code></li> from the server running stracker.
+                            <li><code>&lt;My Documents&gt;/Assetto Corsa/logs/py_log.txt</code> from the computer running the game. </li>
+                            <li><code>&lt;My Documents&gt;/Assetto Corsa/logs/ptracker-exe-stdout.txt</code> from the computer running the game (if existing). </li>
+                            <li><code>&lt;My Documents&gt;/Assetto Corsa/logs/ptracker_fileobserver.txt</code> from the computer running the game (if existing). </li>
+                        </ul>
+                    </ol>
+                </div>
+            </div>            
+        </div>
+    </div>
+    <h1>Change Log</h1>
+    <h2>From 3.4.x to 3.5.x</h2>
+        <h3>Changes in stracker core</h3>
+            <ul>
+                <li>Additional options in stracker ini file<li>
+                    <table class="table table-striped table-condensed table-bordered table-hover">
+                        <thead>
+                            <th>Section</th>
+                            <th>Option name</th>
+                            <th>Default value</th>
+                            <th>Documentation</th>
+                        </thead>
+                        <tbody>
+                            <tr><td>HTTP_CONFIG</td><td>auth_ban_anonymized_players</td>
+                                <td>False</td>
+                                <td>Add anonymized players to blacklist (works only if stracker's AUTH feature is used in server).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </li>
+                <li>Upgrade database version to 24; steam ID's will be replaced by a more anonymous hash value</li>
+                <li>Anonymize all steam ids saved in the server database.</li>
+                <li>Provide a user command to anonymize his personal data. Results in deletion of his chat messages, and his name will be 
+                    replaced with an anoymous name, which is not updated anymore until the user chooses to exit stealth mode. Admins can 
+                    choose to automatically add anonymous players to the ban list (see above).</li>
+                <li>Changes in README.txt, mention the EU GDPR dilemma and make sure that the server admin takes responsibility.</li>
+                <li>Removed options HTTP_CONFIG/enable_paypal_link and BLACKLIST/blacklist_file from stracker ini file</li>
+                <li>Removed blacklist file synchronization support. Use stracker auth instead.</li>
+            </ul>
+        <h3>Changes in stracker http</h3>
+            <ul>
+                <li>fix sort order of drivers in drivers page for postgres databases</li>
+                <li>chnages in some of the http templates</li>
+            </ul>
+    <h2>From 3.3.x to 3.4.x</h2>
+        <h3>Changes in stracker core</h3>
+            <ul>
+                <li>Changes in stracker ini file
+                    <table class="table table-striped table-condensed table-bordered table-hover">
+                        <thead>
+                            <th>Section</th>
+                            <th>Option name</th>
+                            <th>Default value</th>
+                            <th>Documentation</th>
+                        </thead>
+                        <tbody>
+                            <tr><td>STRACKER_CONFIG</td><td>ac_server_working_dir</td>
+                                <td>''</td>
+                                <td>You only need to set it, if you are using an unusual directory structure; you will get warnings in your logs in this case</td>
+                                </tr>
+                            <tr><td>HTTP_CONFIG</td><td>ssl</td><td>False</td>
+                                <td>Set to true if you want to use https. Note that you need a SSL certificate and key. If you enable this option, you can reach stracker at https://ip:port/ instead of http://ip:port/.</td>
+                            </tr>
+                            <tr><td>HTTP_CONFIG</td><td>ssl_certificate</td><td>''</td>
+                                <td>Path to the SSL certificate for https. Only used when ssl is True. A self-signed certificate can be generated with "openssl req -new -x509 -days 365 -key privkey.pem -out cert.pem"</td>
+                            </tr>
+                            <tr><td>HTTP_CONFIG</td><td>ssl_private_key</td><td>''</td>
+                                <td>Path to the SSL private key for https. Only used when ssl is True. A private key can be generated with "openssl genrsa -out privkey.pem 2048"</td>
+                            </tr>                            
+                        </tbody>
+                    </table>
+                </li>
+                <li>possible fix for incorrect race results: stracker now reads the json results and adapts the results accordingly (see also config option STRACKER_CONFIG/ac_server_working_dir)</li>
+                <li>experimental fix for the rejoining problems in quali and practice sessions</li>
+            </ul>
+        <h3>Changes in stracker http</h3>
+            <ul>
+                <li>Changes from AC forum user @maxator: option for using https protocol + update to new cherrypy version</li>
+                <li>a little bit more statistics in the player details page</li>    </ul>
+            </ul>
+    <h2>From 3.2.x to 3.3.x</h2>
+        <h3>Changes in stracker core</h3>
+            <ul>
+                <li>Changes in stracker ini file
+                    <table class="table table-striped table-condensed table-bordered table-hover">
+                        <thead>
+                            <th>Section</th>
+                            <th>Option name</th>
+                            <th>Default value</th>
+                            <th>Documentation</th>
+                        </thead>
+                        <tbody>
+                            <tr><td>STRACKER_CONFIG</td><td>guids_based_on_driver_names</td>
+                                <td>False</td>
+                                <td>you normally want to leave that at the default (False). Use case for this is an environment where the same steam account is used by different drivers.</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </li>
+                <li>New Database Scheme Version 23: add cache table in db to cache MR grades</li>
+                <li>send MR grades to connected ptracker instances for display purpose</li>
+                <li>make timed races work in stracker</li>
+            </ul>
+        <h3>Changes in stracker http</h3>
+            <ul>
+                <li>fix track display in session details</li>
+                <li>integrate assist icon update from AC forum user @Laurent81 (thank you very much!)</li>
+            </ul>
+    <h2>From 3.1.x to 3.2.x</h2>
+        <h3>Changes in stracker core</h3>
+            <ul>
+            <li>Changes in stracker ini file</li>
+                <table class="table table-striped table-condensed table-bordered table-hover">
+                    <thead>
+                        <th>Section</th>
+                        <th>Option name</th>
+                        <th>Default value</th>
+                        <th>Documentation</th>
+                    </thead>
+                    <tbody>
+                        <tr><td>SWEAR_FILTER</td><td>warning</td>
+                            <td>Please be polite and do not swear in the chat. You will be %(swear_action)s from the server after receiving %(num_warnings_left)d more warnings</td>
+                            <td>message sent to player after a swear detection</td></tr>
+                        <tr><td>SWEAR_FILTER</td><td>num_warnings</td>
+                            <td>3</td><td>Specify the number of warnings issued before the player is going to be kicked</td></tr>
+                        <tr><td>SWEAR_FILTER</td><td>action</td><td>none</td><td>Valid values are "none", "kick" and "ban".</td></tr>
+                        <tr><td>SWEAR_FILTER</td><td>ban_duration</td><td>30</td><td>Number of days the player shall be banned (if action is "ban").</td></tr>
+                        <tr><td>SWEAR_FILTER</td><td>swear_file</td><td>bad_words.txt</td><td>Specify a file with bad words (one in each line). See <a href="https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words">https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words</a> for examples.</td></tr>
+                        <tr><td>HTTP_CONFIG</td><td><s>enable_flattr_link</s></td><td></td><td>Removed in favor of paypal.</td></tr>
+                        <tr><td>HTTP_CONFIG</td><td>inverse_navbar</td><td>False</td><td>set to true to get the navbar inverted (i.e., dark instead of bright)</td></tr>
+                        <tr><td>HTTP_CONFIG</td><td>velocity_unit</td>
+                            <td>kmh</td>
+                            <td>Valid values are "kmh" or "mph".</td></tr>
+                        <tr><td>HTTP_CONFIG</td><td>temperature_unit</td>
+                            <td>degc</td>
+                            <td>Valid values are "degc" or "degf".</td></tr>
+                        <tr><td>HTTP_CONFIG</td><td>lap_times_add_columns</td>
+                            <td>valid+aids+laps+date</td>
+                            <td>Additional columns to be displayed in LapTimes table (seperated by a + sign). Columns can be "valid", "aids", "laps", "date", "grip", "cuts", "collisions", "tyres", "temps" and "ballast". Note that too many displayed columns might cause problems on some browsers.</td></tr>
+                    </tbody>
+                </table></li>
+            <li>New Database Scheme Version 22
+                <ul>
+                    <li>add column MessagesDisabled to table Players</li>
+                    <li>add column ballast to table Lap</li>
+                    <li>seperate the HistoryInfo column from the Lap table, resulting in much better performance of best lap time queries</li>
+                    <li>add ChatHistory table</li>
+                </ul></li>
+            <li>add point-to-point (A2B) track support with special handling for ks_nordschleife-touristenfahrten</li>
+            <li>add a configurable swear filter leading to kick or ban actions after a specified number of warnings</li>
+            <li>players without ptracker can now decide to not receive any messages from stracker if these messages get too annoying. Decision will be stored in database</li>
+            <li>Avoid 100% cpu load if the sqlite database is locked for some reason</li>
+            <li>add /st whisper command (usage: "/st whisper guid &lt;guid&gt; &lt;text&gt;" or "/st whisper id &lt;carid&gt; &lt;text&gt;")</li>
+            <li>add /st broadcast <message> command</li>
+            <li>rename commands kickban_guid and kickban_id to kickban guid and kickban id</li>
+            <li>change stracker/ptracker protocol for new ptracker stat display, ballast and fuel load</li>
+            <li>display the player's car in the enter message when multiple cars are allowed in the server</li>
+            <li>fix inconsistent timestamps (the timezone should be respected now correctly)</li>
+            <li>fix lap stat time filtering</li>
+            <li>fix qualify classification to match AC style</li>
+            <li>fix ptracker information of very last lap of qualify session</li>
+            <li>Switch the .exe generation tooling from py2exe to pyinstaller on windows systems</li>
+            <li>fix error when compressing the database (introduced in 3.2.0)</li>
+            <li>fix "unability to start" when the blacklist_file in stracker.ini is set. </li>
+            <li>add return to pits heuristics (needed for A2B tracks)</li>
+            <li>fix db compression errors</li>
+            <li>if db compression is enabled, compress immediately when starting stracker instead of waiting for the periodic timer</li>
+            <li>fix possible hangups while exiting</li>
+            <li>remove print() debugging statements spamming the console window</li>
+            <li>fix log errors when trying to send chat messages to disconnected players</li>
+            <li>postres: better error message when trying to migrate to non-empty database</li>
+            <li>postres: fix migration with some legacy session tables (duration too large)</li>
+            </ul>
+        <h3>Changes in stracker http</h3>
+            <ul>
+            <li>admins can now whisper, kick and ban directly from classification view in live map</li>
+            <li>add non-existing tracks and cars in stracker-packager data to database, rather than throw them away (=less upload frequency)</li>
+            <li>configurable columns for lap stat table</li>
+            <li>add option for inverse navbars</li>
+            <li>display chat in live map</li>
+            <li>add session management and broadcast chat possibilities (when logged in as admin) in live map</li>
+            <li>display not connected players in gray in the classification section of live map</li>
+            <li>do not display the positions of unconnected players anymore on the map anymore in live map</li>
+            <li>include custom.css file in all html pages, so the css styles can be easily customized</li>
+            <li>remove flattr donation possibility</li>
+            <li>change filtering in multiselects to case insensitive</li>
+            <li>add log display for chat entries (for admins only)</li>
+            <li>fix (C)orvette display and similar issues (the brand name is now required to be at least 3 characters)</li>
+            <li>possibility for programmers to change http output by making the templates editable. (<b>Note:</b> I can't give support about how to modify these files, you do this adventure for your self.)</li>
+            <li>fix comparison lap choices for multi-car sessions</li>
+            <li>reduce stracker's memory usage by not holding all maps and car badges in memory but only the ones needed</li>
+            <li>changes to templates for supporting the in-game browser</li>
+            <li>display available car badges and track maps correctly for local databases (they are added automatically to the database)</li>
+            <li>update to pygal version 2.1.1 and reduce the size of the lap time comparisons.</li>
+            <li>add fuel display for sessions which have already ended (you won't be able to see the fuel loads for cars in the current session)</li>
+            <li>fix problems when dreamweaver is installed on windows</li>
+            <li>fix typo "unknwon" (thanks for reporting, core3tx)</li>
+            </ul>
+        <h3>Changes in stracker-packager</h3>
+            <ul>
+            <li>support tracks with main layout and config layouts at the same time (e.g. the mod for increasing the number of slots for KS tracks) </li>
+            <li>when an error occurs, display the message and leave the command window open</li>
+            <li>better detection of AC install dir</li>
+            <li>fix errors when having files in the content/cars or content/tracks directories</li>
+            </ul>
+    <h2>Last experimental versions</h2>
+    <h3>3.3.7</h3>
+    <ul>
+        <li>save ESC key press information correctly in DB again</li>
+        <li>non-ptracker player's first lap is invalidated now</li>
+    </ul>
+    <h3>3.3.5</h3>
+    <ul>
+        <li>http: integrate new assist icons provided by AC forum user @Laurent81 (thank you very much!)</li>
+    </ul>
+    <h3>3.3.4</h3>
+    <ul>
+        <li>core: add timed races support in stracker</li>
+        <li>http: fix track display in session details</li>
+    </ul>
+    <h3>3.3.3</h3>
+    <ul>
+        <li>core: restore session management which was broken in 3.3.0 to 3.3.2 (and also the <player> won the race messages)</li>
+        <li>core: clean up code for MR grade querying, fix minorating detection in case of using the new authminoratingcom.azurewebsites.net</li>
+        <li>http: possible bugfix for errors in championship session corrections</li>
+    </ul>
+    <h3>3.3.2</h3>
+    <ul>
+        <li>core: on servers running Minorating, the grades are now transferred to ptracker for display purposes (thanks to Minolin for permission and support!)</li>
+        <li>New Database Scheme 23: add table for caching minorating grades</li>
+        <li>New protocol version 15: add minorating grades to data transferred from stracker to ptracker</li>
+    </ul>
+    <h3>3.3.1</h3>
+    <ul>
+        <li>core: fix setup exchange which has been broken in version 3.3.0</li>
+    </ul>
+    <h3>3.3.0</h3>
+    <ul>
+        <li>core: add option [STRACKER_CONFIG]/guids_based_on_driver_names for creating GUID's based on driver names instead of the steam guids. 
+            This is only ment for very special scenarios (e.g. internet cafe), not for general use.</li>
+    </ul>
+    <h3>3.2.10</h3>
+    <ul>
+        <li>fix compatibility with AC 1.7</li>
+    </ul>
+    <h3>3.2.9</h3>
+    <ul>
+        <li>fix log errors when trying to send chat messages to disconnected players</li>
+        <li>fix typo unknwon (thanks for reporting, core3tx)</li>
+    </ul>
+    <h3>3.2.8</h3>
+    <ul>
+        <li>http: fix problems when dreamweaver is installed on windows</li>
+    </ul>
+    <h3>3.2.7</h3>
+    <ul>
+        <li>core: update stracker/ptracker protocol (backwards compatible) to communicate the fuel load to stracker</li>
+        <li>core: display the player's car in the enter message when multiple cars are allowed in the server</li>
+        <li>http: add fuel display for sessions which have already ended (you won't be able to see the fuel loads for cars in the current session)</li>
+    </ul>
+    <h3>3.2.6</h3>
+    <ul>
+        <li>fix db compression (really really)</li>
+        <li>remove print() debugging statements spamming the console window</li>
+    </ul>
+    <h3>3.2.5</h3>
+    <ul>
+        <li>core: changes in stracker/ptracker protocol to ensure compatibility with ptracker 3.1.x. ptracker versions 3.2.0 to 3.2.4 are incompatible with this version (sorry)</li>
+        <li>core: fix db compression errors</li>
+        <li>core: if db compression is enabled, compress immediately when starting stracker instead of waiting for the periodic timer</li>
+        <li>core: fix possible hangups while exiting</li>
+        <li>postres: better error message when trying to migrate to non-empty database</li>
+        <li>postres: fix migration with some legacy session tables (duration too large)</li>
+        <li>http: fix admin link urls</li>
+        <li>http: (hopefully) fix wrong display of car badges</li>
+        <li>http: fix vmax display</li>
+        <li>stracker-packager: better detection of AC install dir</li>
+        <li>stracker-packager: fix errors when having files in the content/cars or content/tracks directories</li>
+    </ul>
+    <h3>3.2.4</h3>
+    <ul>
+        <li>http: Potential fix for the disappearing car badges and map displays.</li>
+        <li>http: update to pygal version 2.1.1 and reduce the size of the lap time comparisons.</li>
+    </ul>
+    <h3>3.2.3</h3>
+    <ul>
+        <li>Changes in stracker ini file
+            <table class="table table-striped table-condensed table-bordered table-hover">
+                <thead>
+                    <th>Section</th>
+                    <th>Option name</th>
+                    <th>Default value</th>
+                    <th>Documentation</th>
+                </thead>
+                <tbody>
+                    <tr><td>HTTP_CONFIG</td><td>velocity_unit</td>
+                        <td>kmh</td>
+                        <td>Valid values are "kmh" or "mph".</td></tr>
+                    <tr><td>HTTP_CONFIG</td><td>temperature_unit</td>
+                        <td>degc</td>
+                        <td>Valid values are "degc" or "degf".</td></tr>
+                    <tr><td>HTTP_CONFIG</td><td>lap_times_add_columns</td>
+                        <td>valid+aids+laps+date</td>
+                        <td>Additional columns to be displayed in LapTimes table (seperated by a + sign). Columns can be "valid", "aids", "laps", "date", "grip", "cuts", "collisions", "tyres", "temps" and "ballast". Note that too many displayed columns might cause problems on some browsers.</td></tr>
+                </tbody>
+            </table></li>
+        <li>core: add point-to-point (A2B) track support with special handling for ks_nordschleife-touristenfahrten</li>
+        <li>core: add return to pits heuristics (needed for A2B tracks)</li>
+        <li>core: fix possible connection timeouts occuring during remote in-game-browsing (backwards compatible, works with ptracker 3.2.3)</li>
+        <li>core: add profiling information of db queries in debug logging</li>
+        <li>http: add unit configurations also to stracker (HTTP_CONFIG/velocity_unit+temperature_unit)</li>
+        <li>http: reduce stracker's memory usage by not holding all maps and car badges in memory but only the ones needed</li>
+        <li>http: changes to templates for supporting the in-game browser</li>
+        <li>http: display available car badges and track maps correctly for local databases (they are added automatically to the database)</li>
+        <li>http: add unit configurations to stracker.ini (HTTP_CONFIG/velocity_unit+temperature_unit)</li>
+        <li>http: additional optional column vmax in lap stat page (HTTP_CONFIG/lap_times_add_columns)</li>
+        <li>stracker-packager: support tracks with main layout and config layouts at the same time (e.g. the mod for increasing the number of slots for KS tracks) </li>
+        <li>stracker-packager: when an error occurs, display the message and leave the command window open</li>
+    </ul>
+    <h3>3.2.2</h3>
+    <ul>
+        <li> core: fix "unability to start" when the blacklist_file in stracker.ini is set. </li>
+    </ul>    
+    <h3>3.2.1</h3>
+    <ul>
+        <li> core: change stracker/ptracker protocol for new ptracker stat display</li>
+        <li> core: fix error when compressing the database (introduced in 3.2.0)</li>
+        <li> http: fix comparison lap choices for multi-car sessions</li>
+    </ul>
+    <h3>3.2.0</h3>
+    <ul>
+        <li>Changes in stracker ini file</li>
+            <table class="table table-striped table-condensed table-bordered table-hover">
+                <thead>
+                    <th>Section</th>
+                    <th>Option name</th>
+                    <th>Default value</th>
+                    <th>Documentation</th>
+                </thead>
+                <tbody>
+                    <tr><td>SWEAR_FILTER</td><td>warning</td>
+                        <td>Please be polite and do not swear in the chat. You will be %(swear_action)s from the server after receiving %(num_warnings_left)d more warnings</td>
+                        <td>message sent to player after a swear detection</td></tr>
+                    <tr><td>SWEAR_FILTER</td><td>num_warnings</td>
+                        <td>3</td><td>Specify the number of warnings issued before the player is going to be kicked</td></tr>
+                    <tr><td>SWEAR_FILTER</td><td>action</td><td>none</td><td>Valid values are "none", "kick" and "ban".</td></tr>
+                    <tr><td>SWEAR_FILTER</td><td>ban_duration</td><td>30</td><td>Number of days the player shall be banned (if action is "ban").</td></tr>
+                    <tr><td>SWEAR_FILTER</td><td>swear_file</td><td>bad_words.txt</td><td>Specify a file with bad words (one in each line). See <a href="https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words">https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words</a> for examples.</td></tr>
+                    <tr><td>HTTP_CONFIG</td><td><s>enable_flattr_link</s></td><td></td><td>Removed in favor of paypal.</td></tr>
+                    <tr><td>HTTP_CONFIG</td><td>lap_times_add_columns</td><td>valid+aids+laps+date</td><td>Additional columns to be displayed in LapTimes table (seperated by a + sign). Columns can be "valid", "aids", "laps", "date", "grip", "cuts", "collisions", "tyres", "temps" and "ballast". Note that too many displayed columns might cause problems on some browsers.</td></tr>
+                    <tr><td>HTTP_CONFIG</td><td>inverse_navbar</td><td>False</td><td>set to true to get the navbar inverted (i.e., dark instead of bright)</td></tr>
+                </tbody>
+            </table></li>
+        <li>New Database Scheme Version 22
+            <ul>
+                <li>add column MessagesDisabled to table Players</li>
+                <li>add column ballast to table Lap</li>
+                <li>seperate the HistoryInfo column from the Lap table, resulting in much better performance of best lap time queries</li>
+                <li>add ChatHistory table</li>
+            </ul></li>
+        <li>core: Avoid 100% cpu load if the sqlite database is locked for some reason</li>
+        <li>core: rename commands kickban_guid and kickban_id to kickban guid and kickban id</li>
+        <li>core: add /st whisper command (usage: "/st whisper guid &lt;guid&gt; &lt;text&gt;" or "/st whisper id &lt;carid&gt; &lt;text&gt;")</li>
+        <li>core: add /st broadcast <message> command</li>
+        <li>core: add a configurable swear filter leading to kick or ban actions after a specified number of warnings</li>
+        <li>core: players without ptracker can now decide to not receive any messages from stracker if these messages get too annoying. Decision will be stored in database</li>
+        <li>core: fix inconsistent timestamps (the timezone should be respected now correctly)</li>
+        <li>core: fix lap stat time filtering</li>
+        <li>core: fix qualify classification to match AC style</li>
+        <li>core: fix ptracker information of very last lap of qualify session</li>
+        <li>core: Switch the .exe generation tooling from py2exe to pyinstaller on windows systems</li>
+        <li>http: display chat chat in live map</li>
+        <li>http: display not connected players in gray in the classification section of live map</li>
+        <li>http: do not display the positions of unconnected players anymore on the map anymore in live map</li>
+        <li>http: admins can now whisper, kick and ban directly from classification view in live map</li>
+        <li>http: add session management and broadcast chat possibilities (when logged in as admin) in live map</li>
+        <li>http: add non-existing tracks and cars in stracker-packager data to database, rather than throw them away (=less upload frequency)</li>
+        <li>http: include custom.css file in all html pages, so the css styles can be easily customized</li>
+        <li>http: configurable columns for lap stat table</li>
+        <li>http: remove flattr donation possibility</li>
+        <li>http: add log display for chat entries (for admins only)</li>
+        <li>http: add option for inverse navbars</li>
+        <li>http: change filtering in multiselects to case insensitive</li>
+        <li>http: fix (C)orvette display and similar issues (the brand name is now required to be at least 3 characters)</li>
+        <li>http: add custom.css file</li>
+        <li>http: possibility for programmers to change http output by making the templates editable. (<b>Note:</b> I can't give support about how to modify these files, you do this adventure for your self.)</li>
+    </ul>
+    <h2>From 3.0.x to 3.1.x</h2>
+    <ul>
+        <li>Changes in stracker ini file</li>
+            <table class="table table-striped table-condensed table-bordered table-hover">
+                <thead>
+                    <th>Section</th>
+                    <th>Option name</th>
+                    <th>Default value</th>
+                    <th>Documentation</th>
+                </thead>
+                <tbody>
+                    <tr><td>STRACKER_CONFIG</td><td>append_log_file</td><td>False</td><td> 
+                           Set to 1, if you want to append to log files rather than overwriting them. 
+                           Only meaningful with external log file rotation system.</td></tr>
+                    <tr><td>SESSION_MANAGEMENT</td><td>race_over_strategy</td><td>none</td><td> 
+                           What to do when the race is over and no player is actively racing. 
+                           Valid values are: "none" or "skip".</td></tr>
+                    <tr><td>SESSION_MANAGEMENT</td><td>wait_secs_before_skip</td><td>15</td><td>
+                           Number of seconds to wait before the session skip is executed 
+                           (if race_over_strategy is set to "skip")</td></tr>
+                    <tr><td>HTTP_CONFIG</td><td>auth_log_file</td><td></td><td>
+                           Set to a file to be used for logging http authentication requests. Useful to 
+                           prevent attacks with external program (e.g., fail2ban).</td></tr>
+                    <tr><td>HTTP_CONFIG</td><td>enable_paypal_link</td><td>True</td><td>
+                           Enable paypal link for letting users donate to the author. If you do not 
+                           like that, switch it off.</td></tr>
+                    <tr><td>HTTP_CONFIG</td><td>max_streaming_clients</td><td>10</td><td>
+                           Maximum number of streaming clients (LiveMap/Log users) allowed to connect to this server in parallel. 
+                           The number of threads allocated for http serving will be max(10, max_streaming_clients + 5)</td></tr>
+                    <tr><td>LAP_VALID_CHECKS</td><td>ptrackerAllowedTyresOut</td><td>-1</td><td>
+                           if -1: use server penalty setting, if available, otherwise use 2. 
+                            All other values are passed to ptracker.</td></tr>
+                    <tr><td>STRACER_CONFIG</td><td>keep_alive_ptracker_conns</td><td>True</td><td>
+                            If False (not recommended), the TCP keep_alive option will be disabled (that was the behaviour pre 3.1.7).
+                            Note that users might get unexpected ptracker/stracker disconnections when this option
+                            is set to False.</td></tr>
+                </tbody>
+            </table>
+        <li>replace pysqlite3 module by apsw (big change - I hope this will be working!)</li>
+            <ul><li>this should be more stable in database migration, even on multiserver setups</li></ul>
+        <li>server reports now the combo ranking in case of a personal best / server best in addition to the car specific ranking</li>
+        <li>add session management feature</li>
+            <ul><li>stracker can now be configured to automatically skip race sessions, after everyone has finished (default: off)</li>
+                <li>add config option SESSION_MANAGEMENT/wait_secs_before_skip (default: 15 seconds)</li>
+                <li>add admin commands "/st session rlaps", "/st session qtime" and "/st session ptime" for setting number of laps / time of sessions in minutes</li>
+                    <ul><li>player has to be in group "admins" to be able to use them</li></ul>
+            </ul>
+        <li>add config option LAP_VALID_CHECKS/numberOfTyresOut</li>
+            <ul><li>if set to -1 (default) it uses the AC server's penalty setting, if valid, otherwise it uses 2</li>
+                <li>if set to a number between 0 and 3, it configures ptracker for the allowed number of tyres out for valid laps</li>
+            </ul>
+        <li>do not count laps directly after session changes</li>
+        <li>be more verbose about database migration</li>
+        <li>better error reporting for port configuration issues</li>
+        <li>experimental workaround for AC 1.3.3 linux server</li>
+        <li>new stracker/ptracker protocol 10 (minor changes)</li>
+        <li>finish session is now called when the ac signal arrives or when the ac server is detected to be down</li>
+        <li>fix errors with log_requests option</li>
+        <li>suppress warnings and debug messages from udp plugin API when server is down</li>
+        <li>fix for A->B track caused division by zero</li>
+        <li>fix logging of http server related warnings and errors (has been broken since introducing the log_requets option)</li>
+        <li>fix connection losses for no reasons</li>
+        <li>database version 21: add combo information to session</li>
+        <li>http: add live view with map/ranking</li>
+        <li>http: reworked statistics page</li>
+        <li>http: more possibilities to filter lap times</li>
+        <li>http: possibility to select comparison laps manually in lap details view</li>
+        <li>http: add a log view in the admin section with some filtering options</li>
+        <li>http: in case of multiple car sessions, the default lapstat filters are now correct even if not all cars have been used in last session</li>
+        <li>http: better display of grip level in lap details</li>
+        <li>http: fix parsing of json UI files by usage of a new parser module (simplejson instead of python's json)</li>
+        <li>http: add admin button to invalidate all selected laps in statistics page</li>
+        <li>http: add optional paypal link in the footer (you can disable that in stracker.ini: HTTP_CONFIG/enable_paypal_link)</li>
+        <li>http: fix multiserver log file display</li>
+        <li>http: fix logging of http server related warnings and errors (has been broken since introducing the log_requets option)</li>
+        <li>acauth: add more criteria for authorization</li>
+        <li>acauth: add proxy feature for proxying e.g. minorating including a timeout</li>
+    </ul>
+    <h2>From 2.8.x to 3.0.x</h2>
+    <ul>
+        <li>new database version 20</li>
+        <li>migration to the new AC server API (using acplugins4python)</li>
+        <li>stracker/ptracker protocol optimizations; bandwidth problems shall be history now</li>
+        <li>allow AC servers to be restarted independently from stracker. Only exception are changes in the UDP configuration, on which stracker exits.</li>
+        <li>automatic reconnect of ptrackers after stracker has been restarted.</li>
+        <li>server-side calculation of the valid flag (only possible for servers with penalty atm. I hope this will be possible for servers without penalties in the future)</li>
+        <li>upgrade to sqlite 3.08.11.1 (should have a better performance)</li>
+        <li>include lap rank in the best lap messages</li>
+        <li>optionally invalidate laps with collisions</li>
+        <li>new messages for car to car collisions, showing the name of the other car and the impact speed</li>
+        <li>add stracker.ini option for controlling the ptracker connections (settings are any, newer, none)</li>
+        <li>server messages are now sent over chat if ptracker is not available (message types are configurable in stracker.ini)</li>
+        <li>calculate server-side soft splits (if any splits have been uploaded by ptracker already)</li>
+        <li>logging improvements:</li>
+            <ul><li>optionally prefix messages with a timestamp (default: off)</li>
+                <li>hide passwords and user name in the stracker log file</li>
+            </ul>
+        <li>add an optional flattr link in the http footer. Can be disabled with config option. Bye me a beer :) (default: on)</li>
+        <li>add support for the AC authentication feature (see http://<server_ip>:<stracker_http_port>/admin/acauth for details)</li>
+        <li>optimized some of the database queries</li>
+        <li>add a new option for lowering the priority of stracker to give more performance to the game server (default: on)</li>
+        <li>http: new tyre selector in the lapstats table (only for laps after AC 1.2.x)</li>
+        <li>http: display number of laps in the lapstats table</li>
+        <li>http: add options to filter lap statistics for the used server (in multiserver setups)</li>
+        <li>stracker-packager: add option for AC installation dir and support non-default installation dirs</li>
+    </ul>
+    <h2>From 2.6.x to 2.8.x</h2>
+    <ul>
+        <li>new db version 19 (relevant only for stracker):</li>
+            <ul><li>add new table Teams</li>
+                <li>add new columns for Tracks and Cars tables</li>
+            </ul>
+        <li>rename "Players" to "Drivers" in http server output (but the http addresses remain)</li>
+        <li>convert car and track name settings from server_cfg.ini to lower case before using them</li>
+        <li>fix banlist usage when no banlist could be parsed</li>
+        <li>include stracker.ini and server_cfg.ini in stracker logs (for better debugging)</li>
+        <li>http server: add team classification to championships</li>
+            <ul><li>team memberships can be assigned automatically using the entry_list.ini</li>
+                <li>team memberships can be assigned manually (in Admin Area) for all sessions belonging to a championship</li>
+            </ul>
+        <li>http server: add statistics page</li>
+        <li>http server: the banner image is now configurable in the .ini file, default is the Assetto Corsa logo</li>
+        <li>http_server: add support for submitting AC's UI data from admin clients to the server</li>
+        <li>http_server: add general_admin page with a list of all cars and tracks used in this server</li>
+        <li>http_server: nicer displays for tracks and cars (if ui data is available)</li>
+        <li>http_server: add lap comparison charts in the lap details page</li>
+        <li>add stracker-packager.exe, which can be used to add some UI data (human readable names for tracks and cars,badge icons and track maps) to the stracker server (visit the general admin page)</li>
+        <li>http_server: add map display in lap_details page (if map is available)</li>
+        <li>http_server: enable gzip http transfers and perform server-sided in memory caching of http responses</li>
+    </ul>
+    <h2>From 2.6.8 to 2.6.10</h2>
+    <ul>
+        <li>fix stracker freezes after disconnection of players</li>
+    </ul>
+    <h2>From 2.6.7 to 2.6.8</h2>
+    <ul>
+        <li>support track configurations</li>
+        <li>automatically convert configured tracks and track configurations to lower case</li>
+        <li>save a finished session as soon as all players have disconnected (avoid unsaved sessions when stracker is killed)</li>
+    </ul>
+    <h2>To 2.6.x</h2>
+    <ul>   
+        <li>http: introduce championship management</li>
+        <li>http: perform a http redirect after modifying the db</li>
+        <li>http: prevent search engines to access the statistics pages (only main page will be accessable)</li>
+        <li>http: fix problems with html footer</li>
+        <li>add a perform backup option to stracker.exe to manually perform a db backup to a db3 file</li>
+        <li>reduce number of /info page requests to avoid blowing up the AC server log file</li>
+        <li>fix track checksum comparisons</li>
+        <li>add required checksum support</li>
+        <li>add native linux support (experimental)</li>
+        <li>add possibility to generate entry_list.ini from http admin area (session details)</li>
+        <li>when exiting stracker, try to finish the current session, if necessary</li>
+        <li>fix parsing of team/player items in /ENTRY page containing an ampersand character (e.g., "H&H_Racing"); these no longer lead to stracker crashes</li>
+        <li>add a hint how to kindly exit from stracker when starting stracker.exe</li>
+        <li>do not overwrite old .ini file anymore in case all options are present</li>
+        <li>add messages to log file about overwriting old ini files</li>
+    </ul>
+</div>

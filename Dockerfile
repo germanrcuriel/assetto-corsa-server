@@ -1,5 +1,4 @@
 FROM ubuntu:16.04
-MAINTAINER Germán Robledo <germix@germix.net>
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -17,6 +16,26 @@ ENV AC_HTTP_PORT=8081
 ENV AC_PLUGIN_LOCAL_PORT=11001
 ENV AC_PLUGIN_ADDRESS_LOCAL_PORT=12001
 
+ENV ST_SERVER_NAME=AC_Server
+ENV ST_PORT=50042
+ENV ST_POSTGRES_DB=stracker
+ENV ST_POSTGRES_HOST=localhost
+ENV ST_POSTGRES_USER=myuser
+ENV ST_POSTGRES_PASSWORD=password
+ENV ST_USERNAME=
+ENV ST_PASSWORD=
+ENV ST_HTTP_PORT=50041
+ENV ST_WELCOME_MSG_LINE1=
+ENV ST_WELCOME_MSG_LINE2=
+ENV ST_WELCOME_MSG_LINE3=
+ENV ST_WELCOME_MSG_LINE4=
+ENV ST_WELCOME_MSG_LINE5=
+ENV ST_WELCOME_MSG_LINE6=
+ENV ST_PROXY_PLUGIN_LOCAL_PORT=-1
+ENV ST_PROXY_PLUGIN_PORT=-1
+ENV ST_RCV_PORT=12002
+ENV ST_SEND_PORT=11002
+
 ENV UW_LOCAL_PORT=11001
 ENV UW_PLUGIN_PORT=12001
 ENV UW_PROXY_LOCAL_PORT=11002
@@ -33,10 +52,11 @@ RUN dpkg --add-architecture i386 && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,server-manager,udp2ws}" ]
+RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,server-manager,stracker,udp2ws}" ]
 
 COPY files/steamcmd_linux.tar.gz /opt/steamcmd/steamcmd.tar.gz
-COPY files/server-manager_v1.3.0.zip /opt/server-manager/server-manager.zip
+COPY files/server-manager_v1.3.2.zip /opt/server-manager/server-manager.zip
+COPY files/stracker-V3.5.1.zip /opt/stracker/stracker.zip
 COPY files/udp2ws-v0.3.1.zip /opt/udp2ws/udp2ws.zip
 
 ADD scripts/ /usr/local/bin

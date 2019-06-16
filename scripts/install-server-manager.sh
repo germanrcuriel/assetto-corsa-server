@@ -13,6 +13,8 @@ if [ ! -d $SERVER_MANAGER_PATH ]; then
     s#  install_path:.*#  install_path: ${INSTALL_PATH}#
     s/  hostname:.*/  hostname: 0.0.0.0:${SM_HTTP_PORT}/
     s/  session_key:.*/  session_key: ${NEW_UUID}/
+    s/  enabled:.*/  enabled: false/
+    s/    # - ./stracker/stracker_linux_x86.*/    - ../stracker/stracker_linux_x86/stracker --stracker_ini stracker.ini/
   " config.yml
   cp -rf . $SERVER_MANAGER_PATH
 
