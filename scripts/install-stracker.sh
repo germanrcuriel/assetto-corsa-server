@@ -19,7 +19,7 @@ if [ ! -d $STRACKER_PATH ]; then
     s/postgres_user = myuser.*/postgres_user = ${ST_POSTGRES_USER}/
     s/admin_password =.*/admin_password = ${ST_PASSWORD}/
     s/admin_username =.*/admin_username = ${ST_USERNAME}/
-    s/enabled = False.*/enabled = True/
+    s/enabled = False.*/enabled = ${ST_HTTP_ENABLED}/
     s/items_per_page = 15.*/items_per_page = 25/
     s/listen_port =.*/listen_port = ${ST_HTTP_PORT}/
     s/line1 =.*/line1 = ${ST_WELCOME_MSG_LINE1}/
