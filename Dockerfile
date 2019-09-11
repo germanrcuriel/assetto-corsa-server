@@ -56,7 +56,7 @@ RUN dpkg --add-architecture i386 && \
 RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,server-manager,stracker,udp2ws}" ]
 
 COPY files/steamcmd_linux.tar.gz /opt/steamcmd/steamcmd.tar.gz
-COPY files/server-manager_v1.3.2.zip /opt/server-manager/server-manager.zip
+COPY files/server-manager_v1.4.2.zip /opt/server-manager/server-manager.zip
 COPY files/stracker-V3.5.2.zip /opt/stracker/stracker.zip
 COPY files/udp2ws-v0.3.1.zip /opt/udp2ws/udp2ws.zip
 
