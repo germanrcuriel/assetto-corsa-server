@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Madrid
 
 ENV AC_FOLDER=assetto
 
@@ -48,7 +49,7 @@ ENV SM_HTTP_PORT=9000
 
 RUN dpkg --add-architecture i386 && \
     apt-get update && \
-    apt-get install -y libc6:i386 libgcc1:i386 libstdc++6:i386 libz1:i386 libssl-dev:i386 libssl-dev lib32gcc1 unzip ca-certificates && \
+    apt-get install -y libc6:i386 libgcc1:i386 libstdc++6:i386 libz1:i386 libssl-dev:i386 libssl-dev lib32gcc1 unzip ca-certificates tzdata && \
     apt-get clean && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
