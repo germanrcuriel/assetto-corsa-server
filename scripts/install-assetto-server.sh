@@ -27,11 +27,6 @@ setup_assetto() {
     s/UDP_PLUGIN_LOCAL_PORT=0.*/UDP_PLUGIN_LOCAL_PORT=${AC_PLUGIN_LOCAL_PORT}/
     s/UDP_PLUGIN_ADDRESS=.*/UDP_PLUGIN_ADDRESS=127.0.0.1:${AC_PLUGIN_ADDRESS_LOCAL_PORT}/
   " cfg/server_cfg.ini
-  
-  rm -rf $INSTALL_PATH/content
-  rm -rf $INSTALL_PATH/manager
-  ln -sF /steamapps/shared/assetto/content $INSTALL_PATH/content
-  ln -sF /steamapps/shared/assetto/manager $INSTALL_PATH/manager
 }
 
 if [ ! -f $INSTALL_PATH/acServer ];  then

@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Madrid
 
 ENV AC_FOLDER=assetto
 
@@ -37,28 +38,17 @@ ENV ST_PROXY_PLUGIN_PORT=-1
 ENV ST_RCV_PORT=12002
 ENV ST_SEND_PORT=11002
 
-ENV UW_LOCAL_PORT=11001
-ENV UW_PLUGIN_PORT=12001
-ENV UW_PROXY_LOCAL_PORT=11002
-ENV UW_PROXY_PLUGIN_PORT=12002
-ENV UW_PASSWORD=mypassword
-ENV UW_PORT=30000
-
-ENV SM_HTTP_PORT=9000
-
 RUN dpkg --add-architecture i386 && \
     apt-get update && \
-    apt-get install -y libc6:i386 libgcc1:i386 libstdc++6:i386 libz1:i386 libssl-dev:i386 libssl-dev lib32gcc1 unzip ca-certificates && \
+    apt-get install -y libc6:i386 libgcc1:i386 libstdc++6:i386 libz1:i386 libssl-dev:i386 libssl-dev lib32gcc1 unzip ca-certificates tzdata && \
     apt-get clean && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,server-manager,stracker,udp2ws}" ]
+RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,stracker}" ]
 
 COPY files/steamcmd_linux.tar.gz /opt/steamcmd/steamcmd.tar.gz
-COPY files/server-manager_v1.4.2.zip /opt/server-manager/server-manager.zip
-COPY files/stracker-V3.5.2.zip /opt/stracker/stracker.zip
-COPY files/udp2ws-v0.3.1.zip /opt/udp2ws/udp2ws.zip
+COPY files/stracker-V3.5.3.zip /opt/stracker/stracker.zip
 
 ADD scripts/ /usr/local/bin
 
