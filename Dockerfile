@@ -59,7 +59,7 @@ RUN [ "/bin/bash", "-c", "mkdir -p /opt/{assetto,steamcmd,server-manager,stracke
 COPY files/steamcmd_linux.tar.gz /opt/steamcmd/steamcmd.tar.gz
 COPY files/server-manager_v1.5.2.zip /opt/server-manager/server-manager.zip
 COPY files/stracker-V3.5.3.zip /opt/stracker/stracker.zip
-COPY files/udp2ws-v0.3.1.zip /opt/udp2ws/udp2ws.zip
+COPY files/udp2ws-v0.3.3.zip /opt/udp2ws/udp2ws.zip
 
 ADD scripts/ /usr/local/bin
 
