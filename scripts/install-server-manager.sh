@@ -19,7 +19,6 @@ if [ ! -d $SERVER_MANAGER_PATH ]; then
   cp -rf . $SERVER_MANAGER_PATH
 
   mkdir -p $SERVER_MANAGER_PATH/server_manager.db
-  ln -s /steamapps/shared/server-manager/accounts $SERVER_MANAGER_PATH/server_manager.db/accounts
   cat >> $SERVER_MANAGER_PATH/server_manager.db/server_options.json <<EOL
 {
   "Name": "${AC_SERVER_NAME}",
