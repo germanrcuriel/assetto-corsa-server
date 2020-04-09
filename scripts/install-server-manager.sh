@@ -6,6 +6,8 @@ NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 cd /opt/server-manager/linux
 
 if [ ! -d $SERVER_MANAGER_PATH ]; then
+  echo ">>> Setting up Server Manager"
+
   sed -i "
     s/  type:.*/  type: json/
     s/  username:.*/  username:/
@@ -19,9 +21,9 @@ if [ ! -d $SERVER_MANAGER_PATH ]; then
 
   mkdir -p $SERVER_MANAGER_PATH/server_manager.db
 
-  if [ -n ${SHARED_PATH+x} ]; then 
+  if [ -n ${SHARED_PATH+x} ]; then
     mkdir -p $SHARED_PATH/server-manager/accounts
-    ln -s $SHARED_PATH/server-manager/accounts $SERVER_MANAGER_PATH/server_manager.db/accounts
+    ln -sF $SHARED_PATH/server-manager/accounts $SERVER_MANAGER_PATH/server_manager.db/accounts
   fi
 
   cat >> $SERVER_MANAGER_PATH/server_manager.db/server_options.json <<EOL
