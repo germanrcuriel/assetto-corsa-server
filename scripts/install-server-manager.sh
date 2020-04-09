@@ -20,6 +20,7 @@ if [ ! -d $SERVER_MANAGER_PATH ]; then
   mkdir -p $SERVER_MANAGER_PATH/server_manager.db
 
   if [ -n ${SHARED_PATH+x} ]; then 
+    mkdir -p $SHARED_PATH/server-manager/accounts
     ln -s $SHARED_PATH/server-manager/accounts $SERVER_MANAGER_PATH/server_manager.db/accounts
   fi
 

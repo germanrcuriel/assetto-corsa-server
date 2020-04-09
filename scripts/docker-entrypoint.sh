@@ -6,7 +6,7 @@ export INSTALL_PATH="/steamapps/${AC_FOLDER}"
 
 if [ -n ${SHARED_FOLDER+x} ]; then
     export SHARED_PATH="/steamapps/${SHARED_FOLDER}"
-else
+fi
 
 install-all.sh
 
