@@ -4,6 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Madrid
 
 ENV AC_FOLDER=assetto
+ENV SHARED_FOLDER=shared
 
 ENV STEAM_USER=
 ENV STEAM_PASSWORD=

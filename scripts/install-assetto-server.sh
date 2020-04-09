@@ -27,6 +27,25 @@ setup_assetto() {
     s/UDP_PLUGIN_LOCAL_PORT=0.*/UDP_PLUGIN_LOCAL_PORT=${AC_PLUGIN_LOCAL_PORT}/
     s/UDP_PLUGIN_ADDRESS=.*/UDP_PLUGIN_ADDRESS=127.0.0.1:${AC_PLUGIN_ADDRESS_LOCAL_PORT}/
   " cfg/server_cfg.ini
+
+  if [ -z ${SHARED_PATH+x} ]; then 
+    return
+  fi
+
+  if [ ! -d $SHARED_PATH/assetto ]; then
+    mkdir -p $SHARED_PATH/assetto
+    cp -rf $INSTALL_PATH/content $SHARED_PATH/assetto
+    cp -rf $INSTALL_PATH/manager $SHARED_PATH/assetto
+    cp -rf $INSTALL_PATH/setups $SHARED_PATH/assetto
+  fi
+
+  rm -rf $INSTALL_PATH/content
+  rm -rf $INSTALL_PATH/manager
+  rm -rf $INSTALL_PATH/setups
+
+  ln -sF $SHARED_PATH/assetto/content $INSTALL_PATH/content
+  ln -sF $SHARED_PATH/assetto/manager $INSTALL_PATH/manager
+  ln -sF $SHARED_PATH/assetto/setups $INSTALL_PATH/setups
 }
 
 if [ ! -f $INSTALL_PATH/acServer ];  then
